@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"uoubyy.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="This article is a summary of my self-study about Ray-Tracing.  In the traditional rendering pipeline, every object, primitive, and pixel are calculated lighting independently. They know less or eve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learning Journal: RayTracing">
+<meta property="og:url" content="https://uoubyy.github.io/2022/02/20/RayTracing/index.html">
+<meta property="og:site_name" content="Yanyi Bao">
+<meta property="og:description" content="This article is a summary of my self-study about Ray-Tracing.  In the traditional rendering pipeline, every object, primitive, and pixel are calculated lighting independently. They know less or eve">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://uoubyy.github.io/2022/02/20/RayTracing/RayTracing_Result.jpg">
+<meta property="article:published_time" content="2022-02-20T20:30:36.000Z">
+<meta property="article:modified_time" content="2022-02-20T21:37:58.383Z">
+<meta property="article:author" content="Yanyi Bao">
+<meta property="article:tag" content="Graphics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uoubyy.github.io/2022/02/20/RayTracing/RayTracing_Result.jpg">
+
+<link rel="canonical" href="https://uoubyy.github.io/2022/02/20/RayTracing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Learning Journal: RayTracing | Yanyi Bao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yanyi Bao</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://uoubyy.github.io/2022/02/20/RayTracing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanyi Bao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yanyi Bao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Learning Journal: RayTracing
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-20 13:30:36 / Modified: 14:37:58" itemprop="dateCreated datePublished" datetime="2022-02-20T13:30:36-07:00">2022-02-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This article is a summary of my self-study about Ray-Tracing.</p>
+<img src="/2022/02/20/RayTracing/RayTracing_Result.jpg" class="" title="Final Effect">
+<p>In the traditional rendering pipeline, every object, primitive, and
+pixel are calculated lighting independently. They know less or even
+nothing about nearby objects. As a result, it’s hard to calculate
+indirect illumination. For example, those objects out of view frustum
+will be culled. But in reality, they make great contributions to the
+scene. Though, these years many methods have be proposed, they are more
+like some tricks.</p>
+<p>The theory of Ray-Tracing has been advanced for almost 40 years, but
+due to its giant amount of calculation, it has not been widely applied.
+Recently, the breakthrough of graphics technology makes it possible to
+apply this technology in real-time rendering and greatly improves the
+rendering quality.</p>
+<span id="more"></span>
+<h2 id="introduction">Introduction</h2>
+<p>Ray-Tracing is a recursive process. Firstly, cast a ray from the view
+point to a pixel in the screen, then get the closest intersection object
+in this direction, calculate the lighting in the intersection point.
+Next, reflect or refract the ray and repeat the <strong>Ray
+Casting</strong>, <strong>Closest Intersection Object</strong>,
+<strong>Reflect</strong> and <strong>Refract</strong> until the ray
+reach the light source or exceed the maximum recursion depth.</p>
+<h2 id="ray-casting">Ray Casting</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ray</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ray</span>();</span><br><span class="line">    <span class="built_in">ray</span>(<span class="type">const</span> point3&amp; origin, <span class="type">const</span> vec3&amp; direction);</span><br><span class="line"></span><br><span class="line">    <span class="function">point3 <span class="title">origin</span><span class="params">()</span> <span class="type">const</span></span>;</span><br><span class="line">    <span class="function">vec3 <span class="title">direction</span><span class="params">()</span> <span class="type">const</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">point3 <span class="title">at</span><span class="params">(<span class="type">double</span> t)</span> <span class="type">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    point3 orig;</span><br><span class="line">    vec3 dir;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>A ray is defined by an origin point and a casting direction. Every
+point in this ray can be defined by <span class="math inline">\(p = orig
++ t *dirp=orig+t∗dir\)</span>.</p>
+<h2 id="object-intersection">Object Intersection</h2>
+<p>Now, we have the representation of the ray and the surface <span
+class="math inline">\(f(p) = 0\)</span>. By replacing the <span
+class="math inline">\(p\)</span> in the surface equation, we get a new
+equation in terms of <span class="math inline">\(t\)</span>, <span
+class="math inline">\(f(orig + t * dir) = 0\)</span>. If this equation
+has no solution means not intersecting, and the smallest solution is the
+intersection point.</p>
+<h2 id="intersection-equation">Intersection Equation</h2>
+<ul>
+<li>Sephere Equation A sephere with the center <span
+class="math inline">\(c(x_{c}, y_{c}, z_{c})\)</span>and radius <span
+class="math inline">\(R\)</span> can be represented by: <span
+class="math display">\[\begin{align}
+(x-x_c)^2+(y-y_c)^2+(z-z_c)^2-R^2=0 \nonumber
+\end{align}\]</span> Rewrite the equation in vector form: <span
+class="math display">\[\begin{align}
+(p-c)\cdot(p-c)-R^2=0 \nonumber
+\end{align}\]</span> Replace pp by equation <span
+class="math inline">\(p = orig + t*dir\)</span>: <span
+class="math display">\[\begin{align}
+(orig + t * dic - c)\cdot(orig + t * dic - c)-R^2=0 \nonumber \\
+(dir\cdot dir)t^2 + 2dir\cdot(orig-c)t + (orig - c)\cdot(orig - c)-R^2=0
+\nonumber
+\end{align}\]</span> It’s a Quadratic Polynomial, <span
+class="math inline">\(At^2+Bt+C=0\)</span>: <span
+class="math display">\[\begin{align}
+A=dir\cdot dir \nonumber \\
+B=2dir\cdot(orig - c) \nonumber \\
+C=(orig-c)\cdot(orig-c)-R^2 \nonumber \\
+t=(-B\pm \sqrt{B^2-4AC}\over 2A \nonumber \\
+t=(-B/2\pm \sqrt{(B/2)^2-AC}\over A \nonumber \\
+\end{align}\]</span></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">sphere::hit</span><span class="params">(<span class="type">const</span> ray&amp; r, <span class="type">double</span> tmin, <span class="type">double</span> tmax)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vec3 oc = r.<span class="built_in">origin</span>() - center;</span><br><span class="line">    <span class="keyword">auto</span> a = r.<span class="built_in">direction</span>().<span class="built_in">length_squared</span>();</span><br><span class="line">    <span class="keyword">auto</span> half_b = <span class="built_in">dot</span>(oc, r.<span class="built_in">direction</span>());</span><br><span class="line">    <span class="keyword">auto</span> c = oc.<span class="built_in">length_squared</span>() - radius * radius;</span><br><span class="line">    <span class="keyword">auto</span> discriminant = half_b * half_b - a * c;</span><br><span class="line"></span><br><span class="line">    <span class="type">bool</span> hitted = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (discriminant &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">auto</span> root = <span class="built_in">sqrt</span>(discriminant);</span><br><span class="line">        <span class="keyword">auto</span> temp = (-half_b - root) / a;</span><br><span class="line">        <span class="keyword">if</span> (temp &lt; tmax &amp;&amp; temp &gt; tmin) &#123;</span><br><span class="line">            hitted = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            temp = (-half_b + root) / a;</span><br><span class="line">            <span class="keyword">if</span> (temp &lt; tmax &amp;&amp; temp &gt; tmin) &#123;</span><br><span class="line">                hitted = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hitted;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Triangle Equation Giving a triangle with vertices <span
+class="math inline">\(a, b, c\)</span> the ray intersects with the
+triangle surface at: <span class="math display">\[\begin{align}
+orig + t * dir=\alpha + \beta(b-a) +\gamma(c-a) \nonumber
+\end{align}\]</span></li>
+</ul>
+<p>Only if <span class="math inline">\(\beta&gt;0\)</span>, <span
+class="math inline">\(\gamma&gt;0\)</span>, <span
+class="math inline">\(\beta+\gamma&lt;1\)</span>, the intersection is
+inside the triangle.</p>
+<h2 id="materials">Materials</h2>
+<ul>
+<li><strong>Diffuse</strong> Surfaces don’t emit light but only scatter
+light equality in all directions. <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec3 scatter_direction = hit_record.normal + <span class="built_in">random_in_hemisphere</span>(hit_record.normal);</span><br><span class="line">scattered = <span class="built_in">ray</span>(hit_record.p, scatter_direction);</span><br></pre></td></tr></table></figure></li>
+<li><strong>Reflection</strong> The smooth surfaces will scatter light
+in a specific direction. The relationship between incident light and
+reflected light is shown in the following figure:</li>
+</ul>
+<p>As shown in the figure, we can get the reflected light direction
+equation: <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vec3 <span class="title">reflect</span><span class="params">(<span class="type">const</span> vec3&amp; v, <span class="type">const</span> vec3 n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> v - <span class="number">2</span> * <span class="built_in">dot</span>(v, n) * n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> * <strong>Refraction</strong> When a light hits
+materials like glass, and water, it will split into reflected and
+refracted light. According to the Snell’s law: <span
+class="math display">\[\begin{align}
+sin\theta_r=n_1sin\theta_i \over n_2 \nonumber
+\end{align}\]</span></p>
+<p>We assume that the incident ray <span
+class="math inline">\(R\)</span>, and the refrated ray <span
+class="math inline">\(R&#39;\)</span> are unit vectors. The reflacted
+ray <span class="math inline">\(R&#39;\)</span> can be splited into
+parts <span class="math inline">\(R_{\parallel}&#39;\)</span> which
+parallels to <span class="math inline">\(n\)</span> and <span
+class="math inline">\(R&#39;_{\perp}\)</span> which is perpendicular to
+<span class="math inline">\(n\)</span>. <span
+class="math display">\[\begin{align}
+|R_\perp|=|R|*sin\theta_i \nonumber \\
+|R&#39;_\perp|=|R&#39;|*sin\theta_r \nonumber \\
+|R&#39;_\perp|={ {sin\theta_r * |R_\perp|} \over {sin\theta_i} }
+\nonumber \\
+R&#39;_{\perp} = {-{n_1*R_{\perp}\over n_2}} \nonumber \\
+R_{\perp}=-(R+|R|cos\theta_i n) \nonumber \\
+R&#39;_\perp={n_1\over n_2}(R+cos\theta_i n) \nonumber \\
+R&#39;_\parallel = -\sqrt{1-|{R&#39;_\perp}^2n} \nonumber
+\end{align}\]</span></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vec3 unit_direction = <span class="built_in">unit_vector</span>(r_in.<span class="built_in">direction</span>());</span><br><span class="line"></span><br><span class="line"><span class="type">double</span> cos_theta = <span class="built_in">fmin</span>(<span class="built_in">dot</span>(-unit_direction, hit_record.normal), <span class="number">1.0</span>);</span><br><span class="line"><span class="type">double</span> sin_theta = <span class="built_in">sqrt</span>(<span class="number">1.0</span> - cos_theta * cos_theta);</span><br><span class="line"></span><br><span class="line">vec3 r_out_perp = etai_over_etat * (unit_direction + cos_theta * hit_record.normal);</span><br><span class="line">vec3 r_out_parallel = -<span class="built_in">sqrt</span>(<span class="number">1.0</span> - r_out_parallel.<span class="built_in">length_squared</span>()) * n;</span><br><span class="line"></span><br><span class="line">vec3 refracted = r_out_parallel + r_out_perp;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Graphics/" rel="tag"># Graphics</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/20/HeapMemoryManager/" rel="prev" title="Heap Memory Manager">
+      <i class="fa fa-chevron-left"></i> Heap Memory Manager
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ray-casting"><span class="nav-number">2.</span> <span class="nav-text">Ray Casting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-intersection"><span class="nav-number">3.</span> <span class="nav-text">Object Intersection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intersection-equation"><span class="nav-number">4.</span> <span class="nav-text">Intersection Equation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#materials"><span class="nav-number">5.</span> <span class="nav-text">Materials</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yanyi Bao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanyi Bao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
