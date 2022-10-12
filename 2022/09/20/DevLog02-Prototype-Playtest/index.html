@@ -20,22 +20,22 @@
     var CONFIG = {"hostname":"uoubyy.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Outline effect is widely used in real-time rendering, and there have been a number of methods advanced. In the book “Real Time Rendering”, the author classifies them into five main categories. Thi">
+  <meta name="description" content="Though we only have three weeks to work, we are happy and proud that we achieved the target we made before. We completed the whole game processing in the prototype version, including the join matc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Outline Effect In Unity">
-<meta property="og:url" content="https://uoubyy.github.io/2021/11/07/OutlineEffectInUnity/index.html">
+<meta property="og:title" content="Dev Log 02: Prototype Playtest">
+<meta property="og:url" content="https://uoubyy.github.io/2022/09/20/DevLog02-Prototype-Playtest/index.html">
 <meta property="og:site_name" content="Yanyi Bao">
-<meta property="og:description" content="Outline effect is widely used in real-time rendering, and there have been a number of methods advanced. In the book “Real Time Rendering”, the author classifies them into five main categories. Thi">
+<meta property="og:description" content="Though we only have three weeks to work, we are happy and proud that we achieved the target we made before. We completed the whole game processing in the prototype version, including the join matc">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://uoubyy.github.io/2021/11/07/OutlineEffectInUnity/OutlineEffect.png">
-<meta property="article:published_time" content="2021-11-07T22:39:45.000Z">
-<meta property="article:modified_time" content="2022-02-20T21:44:23.000Z">
+<meta property="og:image" content="https://imgur.com/s6CCZdi.png">
+<meta property="article:published_time" content="2022-09-21T03:19:34.000Z">
+<meta property="article:modified_time" content="2022-10-12T04:12:11.701Z">
 <meta property="article:author" content="Yanyi Bao">
-<meta property="article:tag" content="Graphics">
+<meta property="article:tag" content="Dev">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://uoubyy.github.io/2021/11/07/OutlineEffectInUnity/OutlineEffect.png">
+<meta name="twitter:image" content="https://imgur.com/s6CCZdi.png">
 
-<link rel="canonical" href="https://uoubyy.github.io/2021/11/07/OutlineEffectInUnity/">
+<link rel="canonical" href="https://uoubyy.github.io/2022/09/20/DevLog02-Prototype-Playtest/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Outline Effect In Unity | Yanyi Bao</title>
+  <title>Dev Log 02: Prototype Playtest | Yanyi Bao</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LN7GLC1KCG"></script>
     <script>
@@ -167,7 +167,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://uoubyy.github.io/2021/11/07/OutlineEffectInUnity/">
+    <link itemprop="mainEntityOfPage" href="https://uoubyy.github.io/2022/09/20/DevLog02-Prototype-Playtest/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -180,7 +180,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Outline Effect In Unity
+          Dev Log 02: Prototype Playtest
         </h1>
 
         <div class="post-meta">
@@ -190,14 +190,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-11-07 15:39:45" itemprop="dateCreated datePublished" datetime="2021-11-07T15:39:45-07:00">2021-11-07</time>
+              <time title="Created: 2022-09-20 21:19:34" itemprop="dateCreated datePublished" datetime="2022-09-20T21:19:34-06:00">2022-09-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-20 14:44:23" itemprop="dateModified" datetime="2022-02-20T14:44:23-07:00">2022-02-20</time>
+                <time title="Modified: 2022-10-11 22:12:11" itemprop="dateModified" datetime="2022-10-11T22:12:11-06:00">2022-10-11</time>
               </span>
 
           
@@ -211,45 +211,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <img src="/2021/11/07/OutlineEffectInUnity/OutlineEffect.png" class="" title="Final Effect">
-<p>Outline effect is widely used in real-time rendering, and there have
-been a number of methods advanced. In the book “Real Time Rendering”,
-the author classifies them into five main categories. This article is
-based on one of them. The core idea is to use two passes to render. In
-the first pass, only render the back face and expend the vertices in
-their normal directions. And in the second pass, cull the back face.
-Further, this article presents a method to render a pixel-perfect
-outline.</p>
+        <p><a target="_blank" rel="noopener" href="https://youtu.be/RGIJlZxaFgA"
+title="Prototype Playtest"><img src="https://imgur.com/s6CCZdi.png"
+alt="Prototype Playtest" /></a></p>
+<p>Though we only have three weeks to work, we are happy and proud that
+we achieved the target we made before. We completed the whole game
+processing in the prototype version, including the join match, the
+match-ready phase, and the game settlement. The network is stable and
+easy to handle three vs three matches. There is no noticeable net delay.
+I'm happy that I proved that we can master the multiplayer framework. We
+build a solid fundamental for our project.</p>
 <span id="more"></span>
-<ul>
-<li>The core idea <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cull Front</span><br></pre></td></tr></table></figure> In the first pass, we only need to
-render the back face. It’s convenient to disable front face rendering in
-Unity. The theory is that the vertices of primitives are defined in a
-fixed winding order, clockwise or counter-clockwise. But in the view
-direction, the back face vertices’ order will be reversed. For example,
-if we defined vertices in the counter-clockwise order, the triangle in
-the back face will be rendered in clockwise order. <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">float4 clipPosition = UnityObjectToClipPos(v.vertex);</span><br><span class="line">float3 clipNormal = mul((float3x3)UNITY_MATRIX_VP, mul((float3x3)UNITY_MATRIX_M, v.normal));</span><br><span class="line"></span><br><span class="line">clipPosition += normalize(clipNormal) * _OutlineWidth;</span><br></pre></td></tr></table></figure> Then,
-we extend each vertex’s position in their normal direction with a short
-distance. But, there exists a problem. If we extend vertex’s position in
-both x, y, and z directions. The vertex in the back face may run to the
-front, especially in the part of the recessed inward model, like the
-corners of the mouth. <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clipPosition.xy += normalize(clipNormal).xy * _OutlineWidth;</span><br></pre></td></tr></table></figure> Yes, now we get an outline. But it’s
-not perfect. The outline of close objects and far objects are not in the
-same width. That’s because in the “perspective division” step, the x and
-y components of the vertex are divided by the w component. The far the
-object, the larger the w component. <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clipPosition.xy += normalize(clipNormal).xy * _OutlineWidth * clipPosition.w;</span><br></pre></td></tr></table></figure> Now, the outline width
-is uniform for both close and far objects. But the meaning of the
-parameter “_OutlineWidth” is a bit counterintuitive, where 1 means 50%
-of the screen. For example, if vertex’s position in clip space is <span
-class="math inline">\((0, 0, z, w)\)</span>, and it’s normal direction
-is <span class="math inline">\((1, 0, 0)\)</span>, the “_OutlineWidth”
-is 1. After changing, it will become <span class="math inline">\((w, 0,
-z, w)\)</span>. After perspective division, it’s mapped to <span
-class="math inline">\((1, 0)\)</span>. What’s more, the screen with and
-height are always different. In order to make “_outlineWidth” into the
-pixels, we need to divide half screen width and height.
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clipPosition.xy += normalize(clipNormal).xy / _ScreenParams.xy * 2 * _OutlineWidth * clipPosition.w;</span><br></pre></td></tr></table></figure></li>
-</ul>
+<p>While it still exposed many issues. Some severe bugs, the confused
+UI, and, what's more, we need to start the game server manually. In the
+next stage, I plan to complete the matchmaker server first because
+that's the prerequisite so that our tester can test it flexibly. And my
+teamworkers will add more weapons, more pickups to rich the game
+content.</p>
 
     </div>
 
@@ -259,7 +237,7 @@ pixels, we need to divide half screen width and height.
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Graphics/" rel="tag"># Graphics</a>
+              <a href="/tags/Dev/" rel="tag"># Dev</a>
           </div>
 
         
@@ -268,13 +246,10 @@ pixels, we need to divide half screen width and height.
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/11/04/ToneEffectinUnity/" rel="prev" title="Tone Effect in Unity">
-      <i class="fa fa-chevron-left"></i> Tone Effect in Unity
+    <a href="/2022/08/29/DevLog01-ShootGame/" rel="prev" title="Dev Log 01: Unnamed Project">
+      <i class="fa fa-chevron-left"></i> Dev Log 01: Unnamed Project
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/12/08/Dev-EndlessGraves/" rel="next" title="EndlessGraves">
-      EndlessGraves <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
