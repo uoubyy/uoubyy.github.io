@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"uoubyy.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Yes, we made the Matchmaker! And we gave it a name &quot;Highrise Guardian.&quot; According to the Process Flow Charts designed in Dev Log 01, I completed the implementation of the matchmaker. Due to the a">
+  <meta name="description" content="Yes, we made the Matchmaker! And we gave it a name, &quot;Highrise Guardian.&quot; According to the Process Flow Charts designed in Dev Log 01, I completed the implementation of the Matchmaker. Due to the">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dev Log 03: Sprint Review">
 <meta property="og:url" content="https://uoubyy.github.io/2022/11/01/DevLog03-Sprint-Review/index.html">
 <meta property="og:site_name" content="Yanyi Bao">
-<meta property="og:description" content="Yes, we made the Matchmaker! And we gave it a name &quot;Highrise Guardian.&quot; According to the Process Flow Charts designed in Dev Log 01, I completed the implementation of the matchmaker. Due to the a">
+<meta property="og:description" content="Yes, we made the Matchmaker! And we gave it a name, &quot;Highrise Guardian.&quot; According to the Process Flow Charts designed in Dev Log 01, I completed the implementation of the Matchmaker. Due to the">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-02T04:12:34.000Z">
-<meta property="article:modified_time" content="2022-11-02T05:13:31.495Z">
+<meta property="article:modified_time" content="2022-11-02T17:58:35.780Z">
 <meta property="article:author" content="Yanyi Bao">
 <meta property="article:tag" content="Dev">
 <meta name="twitter:card" content="summary">
@@ -192,10 +192,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-11-01 22:12:34 / Modified: 23:13:31" itemprop="dateCreated datePublished" datetime="2022-11-01T22:12:34-06:00">2022-11-01</time>
+              <time title="Created: 2022-11-01 22:12:34" itemprop="dateCreated datePublished" datetime="2022-11-01T22:12:34-06:00">2022-11-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-02 11:58:35" itemprop="dateModified" datetime="2022-11-02T11:58:35-06:00">2022-11-02</time>
+              </span>
 
           
 
@@ -212,27 +218,26 @@
 title="The First Offical Trailer"><img
 src="https://i.imgur.com/YT2W0mI.png"
 alt="The First Offical Trailer" /></a></p>
-<p>Yes, we made the Matchmaker! And we gave it a name "Highrise
+<p>Yes, we made the Matchmaker! And we gave it a name, "Highrise
 Guardian."</p>
 <p>According to the Process Flow Charts designed in Dev Log 01, I
-completed the implementation of the matchmaker. Due to the adding of the
-matchmaker, the process of the game framework has also been
-modified.</p>
-<p>After loaded, the clients will connect to the User Info Server to get
-the account information, expecially the session id. Then, the client
-will join the matchmaker pool. The client can request game mode he want
-to play. Once matched, the clients will jump to the Lobby. In the lobby,
-clients can equip weapons and abilities. Those info will be send to the
-matchmaker and stored in the matchmaker. Once all the clients ready, the
-matchmaker will launch the UE5 dedicated server and notify all the
-clients the dedicated server address and port.</p>
-<p>Now, the dedivated server is responsib to the initial weapon
-equipped, the valiation of the player carried weapons and abilities.
-It's much more safer and hard to cheat.</p>
-<p>Today, we got a zoom meeting with Rockstar. They gave us many useful
-advice an post many questions that deserve us to think about in deep.
-So, in the next stage, we decide not to add more new features, we have
-many bugs to fix and our designer need to think more about</p>
+completed the implementation of the Matchmaker. Due to the Matchmaker's
+addition, the game framework's process has also been modified. After
+loading, the clients will connect to the User Info Server to get the
+account information, especially the session id. Then, the client will
+join the matchmaker pool. The client can request the game mode he wants
+to play. Once matched, the clients will jump to the Lobby. In the Lobby,
+clients can equip weapons and abilities. That info will be sent to the
+Matchmaker and stored in the Matchmaker. Once all the clients are ready,
+the Matchmaker will launch the UE5 dedicated server and notify all the
+clients of the dedicated server address and port.</p>
+<p>Now, the dedicated server is responsible for the initial weapon
+equipped, validating the player's carried weapons and abilities. It's
+much safer and hard to cheat.</p>
+<p>Today, we got a zoom meeting with Rockstar. They gave us helpful
+advice and posted many questions we should consider in depth. So, in the
+next stage, we decide not to add more new features, we have many bugs to
+fix, and our designer needs to think more about the game balance.</p>
 
     </div>
 
